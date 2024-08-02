@@ -1,4 +1,5 @@
 const video = document.querySelector('#framevideo');
+video.currentTime = 3;
 const container = document.querySelector('#container');
 // Video set display size
 if(window.matchMedia("(max-width: 767px)").matches) {

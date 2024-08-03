@@ -16,7 +16,6 @@ let interactions = 0;
 video.addEventListener('timeupdate', function(e) {
     e.preventDefault();
     if (video.currentTime >= 14.5 && interactions === 0) {
-        console.log("time video updated")
         video.pause();
         changeSlide();
         interactions++;
@@ -67,7 +66,6 @@ const cuteTexts = [
 ]
 
 function changeSlide () {
-    console.log("changeSlide");
     const sliderArea = document.createElement('div');
     sliderArea.innerHTML = cuteTexts[interactions];
     sliderArea.className = `slider-area animate__animated animate__fadeIn animate__delay-2s`;
@@ -98,7 +96,7 @@ function addFirstListenerButtons () {
         video.play();
     })
 }
-let submits = 0
+
 function addFormListener() {
     const url = "https://yrasw3vpfe.execute-api.us-west-1.amazonaws.com/Prod"
     const btnSubmit = document.querySelector('#enviar');
@@ -115,10 +113,10 @@ function addFormListener() {
             },
             body: JSON.stringify({name: nombre, phone: telefono, companions: acompanantes})
         }).then( res => {
-            if (res.ok) {
-                container.removeChild( document.querySelector('.slider-area') );
-                video.currentTime = 45.3;
-                video.play();
+            if(res.ok) {
+                setTimeout(() =>{
+                    window.location = 'invite-accepted.html';
+                },1800);
             }
         })
     })

@@ -117,15 +117,20 @@ body {
     border-radius: 0px 0px 5px 0px;
     margin-bottom: 10px;
     padding-left: 5px;
+    font-family: 'Valerius', sans-serif;
+    font-weight: bold;
 }
 
 .pap-input::placeholder {
     color: #444;
     font-size: 15px;
+    font-family: 'Valerius', sans-serif;
 }
 
 .pap-input:focus {
     outline: none;
+    font-family: 'Valerius', sans-serif;
+    font-weight: bold;
 }
 
 .pap-btn {

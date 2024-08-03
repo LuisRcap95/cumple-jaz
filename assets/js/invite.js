@@ -20,10 +20,11 @@ video.addEventListener('timeupdate', function(e) {
         video.pause();
         changeSlide();
         interactions++;
-    } else if(video.currentTime >= 21.5 && interactions === 1) {
+    } else if(video.currentTime >= 21.5 && video.currentTime < 45 && interactions === 1) {
         video.pause();
         interactions = 1;
         changeSlide();
+        interactions++;
     } else if (video.currentTime >= 55.5 && interactions === 1) {
         video.pause();
         interactions = 2;
@@ -51,9 +52,9 @@ const cuteTexts = [
     Sir Shrek le rogamos que su vestimenta se asemeje a algún personaje que haya
     aparecido con él, no es necesario que sea un disfraz</span>
     <form id="inviteForm">
-        <input class="pap-input" type="text" placeholder="Nombre" id="nombre" required>
-        <input class="pap-input" type="tel" placeholder="Teléfono" id="telefono" required>
-        <input class="pap-input" type="number" placeholder="Acompañantes (0 si no)" id="acompanantes" required>
+        <input class="pap-input" type="text" placeholder="Nombre" id="nombre" required />
+        <input class="pap-input" type="tel" placeholder="Teléfono" id="telefono" required />
+        <input class="pap-input" type="number" placeholder="Acompañantes (0 si no)" id="acompanantes" required />
         <button class="pap-btn" id="enviar" >Enviar</button>
     </form></div>`,
     `<div class="slider_caption">
@@ -75,6 +76,8 @@ function changeSlide () {
 
     if (interactions === 0) {
         addFirstListenerButtons();
+    } else if (interactions === 1) {
+        addFormListener();
     }
 
 }
@@ -86,7 +89,6 @@ function addFirstListenerButtons () {
         e.preventDefault();
         video.play();
         container.removeChild( document.querySelector('.slider-area') );
-        console.log("remueve")
     })
 
     buttonNo.addEventListener( 'click', (e) => {
@@ -94,5 +96,30 @@ function addFirstListenerButtons () {
         container.removeChild( document.querySelector('.slider-area') );
         video.currentTime = 45.3;
         video.play();
+    })
+}
+let submits = 0
+function addFormListener() {
+    const url = "https://yrasw3vpfe.execute-api.us-west-1.amazonaws.com/Prod"
+    const btnSubmit = document.querySelector('#enviar');
+    btnSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        const nombre = document.querySelector('#nombre').value;
+        const telefono = document.querySelector('#telefono').value;
+        const acompanantes = document.querySelector('#acompanantes').value;
+        console.log(nombre, telefono, acompanantes);
+        fetch(url + '/add-guest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({name: nombre, phone: telefono, companions: acompanantes})
+        }).then( res => {
+            if (res.ok) {
+                container.removeChild( document.querySelector('.slider-area') );
+                video.currentTime = 45.3;
+                video.play();
+            }
+        })
     })
 }

@@ -151,3 +151,12 @@ body {
     color: #ddd;
     border-bottom: 2px solid #851313;
 }
+
+.message-form {
+    margin: 10px;
+    max-width: 140px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #FFFFFF63;
+}

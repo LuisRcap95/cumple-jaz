@@ -33,12 +33,13 @@ video.addEventListener('timeupdate', function(e) {
 
 const cuteTexts = [
     `<div class="slider_caption">
-        <span class="span-medieval">Lady y/o Sir Caballero. Se le hace la cordial invitación para asistir
-        al cumpleaños de Lady Jaz el día sábado 5 de octubre para celebrar sus 25
-        primaveras.<br>Esperando su participación para el gran evento en la siguiente
-        dirección:<br>
+        <span class="span-medieval">Lady y/o Sir Caballero. Se le hace la cordial invitación para asistir al
+        cumpleaños de Lady Jaz el día sábado 5 de octubre para celebrar sus 25 primaveras. 
+        Esperando su participación para el gran evento en la siguiente dirección:<br>
         <a href="https://maps.app.goo.gl/fCu4U66y1sVXphgn8">Av. Girasol 1, Las Huertas
-        1ra Secc, 53427 Naucalpan de Juárez, Méx.</a></span>
+        1ra Secc, 53427 Naucalpan de Juárez, Méx.</a><br>
+        Nota: Se os ruega su atención al no llevar a sus pequeños querubines ya que
+        podrán haber cosas que no deben ser presenciadas por los más pequeños.</span>
         <div class="btn-container">
             <button id="si" >¿Confirmas asistencia?</button>
             <button id="no" >No, gracias</button>
@@ -102,10 +103,31 @@ function addFormListener() {
     const btnSubmit = document.querySelector('#enviar');
     btnSubmit.addEventListener('click', (e) => {
         e.preventDefault();
+
+        try {
+            document.querySelector('#inviteForm').removeChild( document.querySelector('.error-form') );
+        } catch( err ) {}
         const nombre = document.querySelector('#nombre').value;
         const telefono = document.querySelector('#telefono').value;
         const acompanantes = document.querySelector('#acompanantes').value;
-        console.log(nombre, telefono, acompanantes);
+
+        if( !nombre || !telefono || !acompanantes ) {
+            const errorMessage = document.createElement('span');
+            errorMessage.innerHTML = `Por favor llene todos los campos`;
+            errorMessage.className = `message-form text-danger`;
+            document.querySelector('#inviteForm').appendChild(errorMessage)
+            return;
+        }
+
+        btnSubmit.innerText = `Gracias!`
+        btnSubmit.classList.remove('pap-btn');
+        btnSubmit.classList.add('btn');
+        btnSubmit.classList.add('btn-success');
+
+        const successMessage = document.createElement('span');
+        successMessage.innerHTML = `Estamos registrando sus datos`;
+        successMessage.className = `message-form text-success`;
+        document.querySelector('#inviteForm').appendChild(successMessage);
         fetch(url + '/add-guest', {
             method: 'POST',
             headers: {
@@ -113,10 +135,10 @@ function addFormListener() {
             },
             body: JSON.stringify({name: nombre, phone: telefono, companions: acompanantes})
         }).then( res => {
-            if(res.ok) {
+            if(res.ok) {                
                 setTimeout(() =>{
                     window.location = 'invite-accepted.html';
-                },1800);
+                },500);
             }
         })
     })

@@ -34,7 +34,7 @@ video.addEventListener('timeupdate', function(e) {
 const cuteTexts = [
     `<div class="slider_caption">
         <span class="span-medieval">Lady y/o Sir Caballero. Se le hace la cordial invitación para asistir al
-        cumpleaños de Lady Jaz el día sábado 5 de octubre a las 19:00 para celebrar sus 25 primaveras. 
+        cumpleaños de Lady Jaz el día sábado 5 de octubre a las 07:00pm para celebrar sus 25 primaveras. 
         Esperando su participación para el gran evento en la siguiente dirección:<br>
         <a href="https://maps.app.goo.gl/fCu4U66y1sVXphgn8">Av. Girasol 1, Las Huertas
         1ra Secc, 53427 Naucalpan de Juárez, Méx.</a><br>
